@@ -45,7 +45,7 @@ interface Stories {
   items: StoryItem[]
 }
 
-interface Character {
+export interface Character {
   id: number
   name: string
   description: string
