@@ -8,10 +8,13 @@ const config: Config = {
         marvel: '#ff3300',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Roboto', 'sans-serif'],
       },
       backgroundImage: {
         'search-bar': "url('/assets/search_bar_vermelho.svg')",
+      },
+      boxShadow: {
+        red: '0px 3px 8px rgba(225, 0, 0, 0.603748)',
       },
       screens: {
         sm: '640px',
