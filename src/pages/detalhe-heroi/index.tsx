@@ -1,12 +1,14 @@
 import { SyntheticEvent, useState } from 'react'
 import ColorThief from 'colorthief'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import { AutoComplete } from '@/components/AutoComplete'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
-import { SearchBar } from '@/components/SearchBar'
+import { Loader } from '@/components/Loader'
 
 import { useFavorite } from '@/hooks/useFavorite'
 
@@ -20,13 +22,17 @@ import { InfoHero } from './components/InfoHero'
 export default function HeroDetail() {
   const router = useRouter()
   const { favorites, handleSetFavorites } = useFavorite()
-  const [backgroundColor, setBackgroundColor] = useState('' as string)
+  const [backgroundColor, setBackgroundColor] = useState(
+    'rgba(156, 154, 148, 0.4)',
+  )
 
   const { id } = router.query as { id: string }
   const { data, isLoading } = useGetDetailCharacter({
     characterId: id,
   })
-  const { data: comics } = useGetComics({ characterId: id })
+  const { data: comics, isLoading: isLoadingComics } = useGetComics({
+    characterId: id,
+  })
 
   const hero = data?.results[0] as Character
   const comicsList = comics?.results
@@ -43,115 +49,136 @@ export default function HeroDetail() {
   return (
     <div
       style={{
-        backgroundColor,
+        backgroundColor: backgroundColor ?? 'rgba(156, 154, 148, 0.4)',
       }}
-      className={`flex min-h-screen flex-col justify-center overflow-x-hidden`}
+      className={`relative flex min-h-screen flex-col justify-center overflow-x-hidden`}
     >
-      {isLoading ? (
-        <p>Carregando...</p>
-      ) : (
-        <>
-          <header className="py-5">
-            <Container className="flex flex-wrap items-center">
-              <Link href="/">
-                <Image
-                  src="/assets/logo_menor.svg"
-                  alt="Marvel Logo"
-                  className="mr-20 w-full max-w-56"
-                  width={280}
-                  height={200}
-                  priority
-                />
-              </Link>
+      <Head>
+        <title>Marvel Detail Hero</title>
+      </Head>
 
-              <SearchBar
-                className="mx-0 my-5 h-10 w-full max-w-[540px] bg-white"
-                onSearch={() => {}}
-              />
-            </Container>
-          </header>
+      <header className="absolute top-0 w-full py-5 pb-9">
+        <Container className="flex flex-wrap items-center">
+          <Link href="/">
+            <Image
+              src="/assets/logo_menor.svg"
+              alt="Marvel Logo"
+              className="mr-20 w-full max-w-56"
+              width={280}
+              height={200}
+              priority
+            />
+          </Link>
 
-          <main className="flex-grow">
-            <section className="pb-14">
-              <Container>
-                <div className="relative z-10 my-20 w-full max-w-[275px]">
-                  <div className="mb-10 flex items-center justify-between">
-                    <h1 className="m-0 text-[40px] font-extrabold uppercase text-gray-700">
-                      {hero.name}
-                    </h1>
+          <AutoComplete />
+        </Container>
+      </header>
 
-                    <button
-                      className="cursor-pointer outline-none"
-                      onClick={() => handleSetFavorites(hero)}
-                    >
+      <main className="pb-28 pt-24">
+        {isLoading || isLoadingComics ? (
+          <div className="flex items-center justify-center">
+            <Loader />
+          </div>
+        ) : (
+          <>
+            {hero ? (
+              <>
+                <section className="pb-14">
+                  <Container>
+                    <div className="relative z-10 my-20 w-full max-w-[275px]">
+                      <div className="mb-10 flex items-center justify-between">
+                        <h1 className="m-0 text-[40px] font-extrabold uppercase text-gray-700">
+                          {hero.name}
+                        </h1>
+
+                        <button
+                          className="cursor-pointer outline-none"
+                          onClick={() => handleSetFavorites(hero)}
+                        >
+                          <Image
+                            src={`/assets/favorito_${
+                              favorites?.some((fav) => fav.id === hero.id)
+                                ? '01'
+                                : '02'
+                            }.svg`}
+                            alt="Favorito"
+                            width={30}
+                            height={30}
+                            priority
+                          />
+                        </button>
+                      </div>
+
                       <Image
-                        src={`/assets/favorito_${
-                          favorites?.some((fav) => fav.id === hero.id)
-                            ? '01'
-                            : '02'
-                        }.svg`}
-                        alt="Favorito"
-                        width={30}
-                        height={30}
+                        id="hero-image"
+                        src={`${hero.thumbnail.path}/portrait_incredible.${hero.thumbnail.extension}`}
+                        alt={hero.name ?? ''}
+                        className="relative left-0 top-0 z-20 mx-auto my-5 max-w-full translate-x-0 md:hidden"
+                        onLoad={handleGetBackgroundColor}
+                        width={220}
+                        height={464}
                         priority
                       />
-                    </button>
-                  </div>
 
-                  <p className="text-justify text-lg leading-7 text-gray-600">
-                    {hero.description}
-                  </p>
-
-                  <InfoHero hero={hero} />
-                </div>
-
-                <Image
-                  id="hero-image"
-                  src={`${hero.thumbnail.path}/portrait_incredible.${hero.thumbnail.extension}`}
-                  alt={hero.name ?? ''}
-                  className="absolute left-1/2 top-[150px] z-20 max-w-[590px] -translate-x-1/4"
-                  onLoad={handleGetBackgroundColor}
-                  width={220}
-                  height={464}
-                  priority
-                />
-
-                <p className="absolute left-0 top-[150px] m-0 h-[460px] w-full cursor-default select-none overflow-hidden break-words text-center text-[350px] font-bold uppercase leading-[0.9] text-white opacity-30">
-                  {hero.name}
-                </p>
-              </Container>
-            </section>
-
-            <section>
-              <Container>
-                <h2 className="mb-16 text-2xl font-bold text-gray-700">
-                  Últimos lançamentos
-                </h2>
-
-                <div className="mt-5 grid grid-cols-6 gap-16">
-                  {comicsList?.map((comic) => (
-                    <div key={comic.id} className="flex flex-col">
-                      <Image
-                        src={`${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}`}
-                        alt={comic.title}
-                        className="transform cursor-default rounded-sm shadow-lg transition-transform duration-300 hover:scale-150"
-                        width={168}
-                        height={252}
-                        priority
-                      />
-                      <p className="mt-5 font-medium text-gray-950">
-                        {comic.title}
+                      <p className="text-justify text-lg leading-7 text-gray-600">
+                        {hero.description}
                       </p>
-                    </div>
-                  ))}
-                </div>
-              </Container>
-            </section>
-          </main>
 
-          <Footer />
-        </>
-      )}
+                      <InfoHero hero={hero} />
+                    </div>
+
+                    <Image
+                      id="hero-image"
+                      src={`${hero.thumbnail.path}/portrait_incredible.${hero.thumbnail.extension}`}
+                      alt={hero.name ?? ''}
+                      className="absolute left-1/2 top-[190px] z-20 hidden max-w-[590px] -translate-x-1/4 md:block"
+                      onLoad={handleGetBackgroundColor}
+                      width={220}
+                      height={464}
+                      priority
+                    />
+
+                    <p className="absolute left-0 top-[300px] m-0 h-[690px] w-full cursor-default select-none overflow-hidden break-words text-center text-[150px] font-bold uppercase leading-[0.9] text-white opacity-20 md:top-[150px] md:text-[350px]">
+                      {hero.name}
+                    </p>
+                  </Container>
+                </section>
+
+                <section>
+                  <Container>
+                    <h2 className="mb-16 text-2xl font-bold text-gray-700">
+                      Últimos lançamentos
+                    </h2>
+
+                    <div className="mt-5 grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-6 md:gap-16">
+                      {comicsList?.map((comic) => (
+                        <div key={comic.id} className="flex flex-col">
+                          <Image
+                            src={`${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}`}
+                            alt={comic.title}
+                            className="h-[225px] min-w-[150px] transform cursor-default rounded-sm shadow-lg transition-transform duration-300 hover:scale-110"
+                            width={150}
+                            height={225}
+                            priority
+                          />
+                          <p className="mt-5 font-medium text-gray-950">
+                            {comic.title}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </Container>
+                </section>
+              </>
+            ) : (
+              <div className="flex items-center justify-center">
+                <p className="text-2xl text-gray-600">Herói não encontrado</p>
+              </div>
+            )}
+          </>
+        )}
+      </main>
+      <Footer />
     </div>
   )
 }

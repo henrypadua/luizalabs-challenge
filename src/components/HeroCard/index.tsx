@@ -18,15 +18,15 @@ export function HeroCard({ hero }: Readonly<HeroCardProps>) {
   }
 
   return (
-    <div>
+    <div className="list-item list-none">
       <button type="button" onClick={handleHeroClick}>
         <figure className="relative m-0 cursor-pointer overflow-hidden">
           <Image
             src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
             alt={hero.name}
-            className="h-64 w-full transform rounded-sm bg-center bg-no-repeat transition-all duration-500 ease-in-out hover:-rotate-2 hover:scale-110 hover:grayscale-[50%]"
-            width={482}
-            height={464}
+            className="h-[250px] min-w-full transform rounded-sm bg-center bg-no-repeat transition-all duration-500 ease-in-out hover:-rotate-2 hover:scale-110 hover:grayscale-[50%]"
+            width={800}
+            height={800}
             priority
           />
 

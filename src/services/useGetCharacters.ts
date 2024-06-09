@@ -20,10 +20,11 @@ export function useGetCharacters({
   return useQuery({
     queryKey: ['useGetCharacters', limit, offset, nameStartsWith, orderBy],
     queryFn: async () => {
-      const baseQuery = `/characters?limit=${limit}&offset=${offset}&orderBy=${orderBy}`
+      const baseQuery = `/characters?offset=${offset}&orderBy=${orderBy}`
+      const limitQuery = limit > 0 ? `&limit=${limit}` : ''
       const nameQuery =
         nameStartsWith.length > 0 ? `&nameStartsWith=${nameStartsWith}` : ''
-      const fullQuery = baseQuery + nameQuery
+      const fullQuery = baseQuery + nameQuery + limitQuery
 
       return api
         .get<CharacterResponse>(fullQuery)

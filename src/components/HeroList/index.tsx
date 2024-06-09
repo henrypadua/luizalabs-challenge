@@ -7,6 +7,7 @@ import { useFavorite } from '@/hooks/useFavorite'
 import { useGetCharacters } from '@/services/useGetCharacters'
 
 import { HeroCard } from '../HeroCard'
+import { Loader } from '../Loader'
 import { Pagination } from '../Pagination'
 import { SearchBar } from '../SearchBar'
 import { Toggle } from '../Toggle'
@@ -24,7 +25,7 @@ export function HeroList() {
 
   const searchName = useDebounce(searchTerm, 500)
 
-  const { data } = useGetCharacters({
+  const { data, isLoading } = useGetCharacters({
     limit: LIMIT,
     offset,
     nameStartsWith: searchName,
@@ -86,25 +87,29 @@ export function HeroList() {
         </div>
       </div>
 
-      <div className="mt-14 grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {showFavorites ? (
-          <>
-            {favorites.length === 0 && (
-              <p className="text-md text-gray-600">
-                Nenhum favorito encontrado
-              </p>
-            )}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="mt-14 grid grid-cols-2 gap-8 p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {showFavorites ? (
+            <>
+              {favorites.length === 0 && (
+                <p className="text-md text-gray-600">
+                  Nenhum favorito encontrado
+                </p>
+              )}
 
-            {favorites?.map((hero) => <HeroCard hero={hero} key={hero.id} />)}
-          </>
-        ) : (
-          <>
-            {data?.results.map((hero) => (
-              <HeroCard hero={hero} key={hero.id} />
-            ))}
-          </>
-        )}
-      </div>
+              {favorites?.map((hero) => <HeroCard hero={hero} key={hero.id} />)}
+            </>
+          ) : (
+            <>
+              {data?.results.map((hero) => (
+                <HeroCard hero={hero} key={hero.id} />
+              ))}
+            </>
+          )}
+        </div>
+      )}
 
       <div className="mt-20">
         {!showFavorites && (

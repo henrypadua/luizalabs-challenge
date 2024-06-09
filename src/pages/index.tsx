@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { HeaderHome } from '@/components/HeaderHome'
@@ -5,10 +7,14 @@ import { HeroList } from '@/components/HeroList'
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative min-h-screen flex-col">
+      <Head>
+        <title>Marvel Search Hero</title>
+      </Head>
+
       <HeaderHome />
 
-      <main className="flex-grow">
+      <main className="pb-28">
         <Container>
           <HeroList />
         </Container>
