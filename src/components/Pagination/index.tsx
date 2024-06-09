@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type PaginationProps = {
   numberOfPages: number
@@ -13,11 +13,7 @@ export function Pagination({
   visiblePages = 5,
   setOffset,
 }: Readonly<PaginationProps>) {
-  const activePageStorage = localStorage.getItem('activePage')
-
-  const [activePage, setActivePage] = useState(
-    activePageStorage ? Number(activePageStorage) : 1,
-  )
+  const [activePage, setActivePage] = useState(1)
 
   const pages = new Array(numberOfPages).fill(1).map((_, index) => index + 1)
 
@@ -39,6 +35,14 @@ export function Pagination({
 
   const startPage = Math.max(1, activePage - Math.floor(visiblePages / 2))
   const endPage = Math.min(pages.length, startPage + visiblePages - 1)
+
+  useEffect(() => {
+    const activePageStorage = localStorage.getItem('activePage')
+
+    if (activePageStorage) {
+      setActivePage(Number(activePageStorage))
+    }
+  }, [])
 
   return (
     <div className="flex items-center justify-center space-x-2">
