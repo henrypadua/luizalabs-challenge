@@ -17,7 +17,7 @@ export function HeroCard({
   const router = useRouter()
 
   const handleHeroClick = () => {
-    router.push(`/detalhe-heroi?id=${hero.id}`, `/detalhe-heroi/${hero.id}`)
+    router.push(`/detalhe-heroi?id=${hero.id}`, `/detalhe-heroi`)
   }
 
   return (

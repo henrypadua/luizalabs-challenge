@@ -1,12 +1,19 @@
 import Image from 'next/image'
+import { twMerge } from 'tailwind-merge'
 
 type SearchBarProps = {
   onSearch: (searchTerm: string) => void
+  className?: string
 }
 
-export function SearchBar({ onSearch }: Readonly<SearchBarProps>) {
+export function SearchBar({ onSearch, className }: Readonly<SearchBarProps>) {
   return (
-    <div className="m-auto flex max-w-[880px] items-center rounded-full bg-[#FDECEC] bg-cover bg-center bg-no-repeat px-6 py-4">
+    <div
+      className={twMerge(
+        'm-auto flex max-w-[880px] items-center rounded-full bg-[#FDECEC] bg-cover bg-center bg-no-repeat px-6 py-4',
+        className,
+      )}
+    >
       <span className="mr-10">
         <Image
           src="/assets/ic_busca.svg"

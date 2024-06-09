@@ -2,7 +2,7 @@ import { CharacterResponse } from '@/interfaces/characters'
 import { api } from '@/libs/axios'
 import { useQuery } from '@tanstack/react-query'
 
-type useGetCharacters = {
+type useGetCharactersProps = {
   limit: number
   offset: number
   nameStartsWith: string
@@ -14,10 +14,10 @@ export function useGetCharacters({
   offset = 1,
   nameStartsWith,
   orderBy = 'name',
-}: useGetCharacters) {
+}: useGetCharactersProps) {
   return useQuery({
     queryKey: ['useGetCharacters', limit, offset, nameStartsWith, orderBy],
-    queryFn: () => {
+    queryFn: async () => {
       const baseQuery = `/characters?limit=${limit}&offset=${offset}&orderBy=${orderBy}`
       const nameQuery =
         nameStartsWith.length > 0 ? `&nameStartsWith=${nameStartsWith}` : ''

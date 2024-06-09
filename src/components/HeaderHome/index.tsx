@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Container } from '../Container'
 
-export function Header() {
+export function HeaderHome() {
   return (
     <header className="py-7">
       <Container>
