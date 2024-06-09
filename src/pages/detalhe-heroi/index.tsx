@@ -9,6 +9,7 @@ import { AutoComplete } from '@/components/AutoComplete'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { Loader } from '@/components/Loader'
+import { InfoHero } from '@/components/modules/InfoHero'
 
 import { useFavorite } from '@/hooks/useFavorite'
 
@@ -16,8 +17,6 @@ import { useGetComics } from '@/services/useGetComics'
 import { useGetDetailCharacter } from '@/services/useGetDetailCharacter'
 
 import { Character } from '@/interfaces/characters'
-
-import { InfoHero } from './components/InfoHero'
 
 export default function HeroDetail() {
   const router = useRouter()
