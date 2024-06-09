@@ -8,7 +8,7 @@ const config: Config = {
         marvel: '#ff3300',
       },
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
+        sans: ['Work Sans', 'sans-serif'],
       },
       backgroundImage: {
         'search-bar': "url('/assets/search_bar_vermelho.svg')",

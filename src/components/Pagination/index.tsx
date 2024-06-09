@@ -36,7 +36,7 @@ export function Pagination({
     <div className="flex items-center justify-center space-x-2">
       {activePage !== 1 && pages.length > 0 && (
         <button
-          className="text-marvel px-4 py-2"
+          className="px-4 py-2 text-marvel"
           onClick={handlePrevious}
           disabled={activePage === 1}
         >
@@ -63,7 +63,7 @@ export function Pagination({
 
       {activePage !== pages.length && pages.length > 0 && (
         <button
-          className="text-marvel px-4 py-2"
+          className="px-4 py-2 text-marvel"
           onClick={handleNext}
           disabled={activePage === pages.length}
         >

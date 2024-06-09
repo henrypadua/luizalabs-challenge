@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import { Container } from '../Container'
 
 export function HeaderHome() {
@@ -11,6 +12,7 @@ export function HeaderHome() {
           className="mx-auto h-28 w-full max-w-80"
           width={280}
           height={200}
+          priority
         />
 
         <h1 className="mt-5 text-center text-3xl font-bold tracking-wider text-gray-700">

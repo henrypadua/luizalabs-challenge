@@ -1,19 +1,16 @@
-import { Character } from '@/interfaces/characters'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Dispatch, SetStateAction } from 'react'
+
+import { useFavorite } from '@/hooks/useFavorite'
+
+import { Character } from '@/interfaces/characters'
 
 type HeroCardProps = {
   hero: Character
-  favorites: Character[]
-  setFavorites: Dispatch<SetStateAction<Character[]>>
 }
 
-export function HeroCard({
-  hero,
-  favorites,
-  setFavorites,
-}: Readonly<HeroCardProps>) {
+export function HeroCard({ hero }: Readonly<HeroCardProps>) {
+  const { handleSetFavorites, favorites } = useFavorite()
   const router = useRouter()
 
   const handleHeroClick = () => {
@@ -33,7 +30,7 @@ export function HeroCard({
             priority
           />
 
-          <div className="bg-marvel absolute bottom-0 left-0 h-1 w-full" />
+          <div className="absolute bottom-0 left-0 h-1 w-full bg-marvel" />
         </figure>
       </button>
 
@@ -42,34 +39,16 @@ export function HeroCard({
 
         <button
           className="cursor-pointer outline-none"
-          onClick={() => {
-            const index = favorites.findIndex((fav) => fav.id === hero.id)
-
-            if (favorites.length >= 5 && index === -1) {
-              alert('Você atingiu o limite de 5 favoritos')
-              return
-            }
-
-            if (index === -1) {
-              setFavorites([...favorites, hero])
-              localStorage.setItem(
-                'favorites',
-                JSON.stringify([...favorites, hero]),
-              )
-            } else {
-              const newFavorites = favorites.filter((fav) => fav.id !== hero.id)
-              localStorage.setItem('favorites', JSON.stringify(newFavorites))
-              setFavorites(newFavorites)
-            }
-          }}
+          onClick={() => handleSetFavorites(hero)}
         >
           <Image
             src={`/assets/favorito_${
-              favorites.some((fav) => fav.id === hero.id) ? '01' : '02'
+              favorites?.some((fav) => fav.id === hero.id) ? '01' : '02'
             }.svg`}
             alt="Favorito"
             width={16}
             height={16}
+            priority
           />
         </button>
       </div>

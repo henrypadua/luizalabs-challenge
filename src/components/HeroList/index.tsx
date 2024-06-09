@@ -1,22 +1,26 @@
-import { useGetCharacters } from '@/services/useGetCharacters'
 import { useEffect, useState } from 'react'
+import { useDebounce } from '@uidotdev/usehooks'
+import Image from 'next/image'
+
+import { useFavorite } from '@/hooks/useFavorite'
+
+import { useGetCharacters } from '@/services/useGetCharacters'
+
 import { HeroCard } from '../HeroCard'
 import { Pagination } from '../Pagination'
 import { SearchBar } from '../SearchBar'
-import { useDebounce } from '@uidotdev/usehooks'
-import Image from 'next/image'
 import { Toggle } from '../Toggle'
-import { Character } from '@/interfaces/characters'
 
 const LIMIT = 20
 
 export function HeroList() {
+  const { favorites } = useFavorite()
+
   const [offset, setOffset] = useState(0)
   const [totalData, setTotalData] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const [orderBy, setOrderBy] = useState('name')
   const [showFavorites, setShowFavorites] = useState(false)
-  const [favorites, setFavorites] = useState<Character[]>([])
 
   const searchName = useDebounce(searchTerm, 500)
 
@@ -44,13 +48,6 @@ export function HeroList() {
     setTotalData(data?.total ?? 0)
   }, [data])
 
-  useEffect(() => {
-    const favorites = localStorage.getItem('favorites')
-    if (favorites) {
-      setFavorites(JSON.parse(favorites))
-    }
-  }, [])
-
   return (
     <section>
       <div className="my-10">
@@ -71,6 +68,7 @@ export function HeroList() {
               src="/assets/ic_heroi.svg"
               alt="Ordenar por nome - A/Z"
               title="Ordenar por nome - A/Z"
+              priority
             />
 
             <select
@@ -97,24 +95,12 @@ export function HeroList() {
               </p>
             )}
 
-            {favorites?.map((hero) => (
-              <HeroCard
-                hero={hero}
-                key={hero.id}
-                favorites={favorites}
-                setFavorites={setFavorites}
-              />
-            ))}
+            {favorites?.map((hero) => <HeroCard hero={hero} key={hero.id} />)}
           </>
         ) : (
           <>
             {data?.results.map((hero) => (
-              <HeroCard
-                hero={hero}
-                key={hero.id}
-                favorites={favorites}
-                setFavorites={setFavorites}
-              />
+              <HeroCard hero={hero} key={hero.id} />
             ))}
           </>
         )}

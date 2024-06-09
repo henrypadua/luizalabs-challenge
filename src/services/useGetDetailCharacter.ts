@@ -1,6 +1,8 @@
-import { CharacterDetailResponse } from '@/interfaces/characterDetail'
-import { api } from '@/libs/axios'
 import { useQuery } from '@tanstack/react-query'
+
+import { api } from '@/libs/axios'
+
+import { CharacterDetailResponse } from '@/interfaces/characterDetail'
 
 type useGetDetailCharacterProps = {
   characterId: string

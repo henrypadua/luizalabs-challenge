@@ -1,6 +1,8 @@
-import { CharacterResponse } from '@/interfaces/characters'
-import { api } from '@/libs/axios'
 import { useQuery } from '@tanstack/react-query'
+
+import { api } from '@/libs/axios'
+
+import { CharacterResponse } from '@/interfaces/characters'
 
 type useGetCharactersProps = {
   limit: number

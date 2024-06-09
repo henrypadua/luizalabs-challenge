@@ -21,6 +21,7 @@ export function SearchBar({ onSearch, className }: Readonly<SearchBarProps>) {
           title="Buscar"
           width={25}
           height={25}
+          priority
         />
       </span>
       <input
