@@ -4,7 +4,7 @@ import { Container } from '../Container'
 
 export function HeaderHome() {
   return (
-    <header className="py-7">
+    <header className="py-7" data-testid="header-home">
       <Container>
         <Image
           src="/assets/logo.svg"

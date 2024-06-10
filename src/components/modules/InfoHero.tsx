@@ -12,7 +12,10 @@ export function InfoHero({ hero }: Readonly<InfoHeroProps>) {
   }
 
   return (
-    <div className="mt-9 flex flex-wrap content-center items-center">
+    <div
+      className="mt-9 flex flex-wrap content-center items-center"
+      data-testid="info-hero"
+    >
       <div className="basis-3/6">
         <p className="mb-3 text-sm text-gray-700">Quadrinhos</p>
         <div className="flex items-center">

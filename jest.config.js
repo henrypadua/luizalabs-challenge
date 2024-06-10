@@ -19,6 +19,8 @@ const config = {
     '!<rootDir>/*.config.js',
     '!<rootDir>/coverage/**',
     '!<rootDir>/src/utils/**',
+    '!<rootDir>/src/pages/_app.tsx',
+    '!<rootDir>/src/pages/_document.tsx',
     '!<rootDir>/src/enums/**',
     '!<rootDir>/src/styles/**',
     '!<rootDir>/dist/**',

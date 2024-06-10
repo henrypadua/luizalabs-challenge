@@ -56,7 +56,7 @@ export function HeroList() {
   }, [data])
 
   return (
-    <section>
+    <section data-testid="hero-list">
       <div className="my-10">
         <SearchBar onSearch={handleSearch} />
       </div>

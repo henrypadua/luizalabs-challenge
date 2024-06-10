@@ -93,6 +93,7 @@ export default function HeroDetail() {
                         <button
                           className="cursor-pointer outline-none"
                           onClick={() => handleSetFavorites(hero)}
+                          data-testid="favorite-button"
                         >
                           <Image
                             src={`/assets/favorito_${
@@ -111,7 +112,7 @@ export default function HeroDetail() {
                       <Image
                         id="hero-image"
                         src={`${hero.thumbnail.path}/portrait_incredible.${hero.thumbnail.extension}`}
-                        alt={hero.name ?? ''}
+                        alt={hero.name}
                         className="relative left-0 top-0 z-20 mx-auto my-5 max-w-full translate-x-0 md:hidden"
                         onLoad={handleGetBackgroundColor}
                         width={220}
@@ -129,7 +130,7 @@ export default function HeroDetail() {
                     <Image
                       id="hero-image"
                       src={`${hero.thumbnail.path}/portrait_incredible.${hero.thumbnail.extension}`}
-                      alt={hero.name ?? ''}
+                      alt={hero.name}
                       className="absolute left-1/2 top-[190px] z-20 hidden max-w-[590px] -translate-x-1/4 md:block"
                       onLoad={handleGetBackgroundColor}
                       width={220}
