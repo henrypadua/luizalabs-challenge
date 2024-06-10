@@ -1,7 +1,6 @@
-<!-- Logo -->
-<p align="center">
-  <img src="./.github/logo.png" alt="Marvel Search Heroes" title="Marvel Search Heroes">
-</p>
+<h1 align="center">
+ Marvel Heroes Search
+</h1>
 
 <!-- Badges -->
 <p align="center">
@@ -16,15 +15,13 @@
  <a href="#computer-sobre">Sobre</a> •
  <a href="#gear-funcionalidades">Funcionalidades</a> •
  <a href="#wrench-tecnologias-utilizadas">Tecnologias</a> •
- <a href="#art-layout">Layout</a> •
- <a href="#movie_camera-preview">Preview</a> •
  <a href="#rocket-executando-o-projeto">Executando</a> •
  <a href="#memo-licença">Licença</a>
 </p>
 
 ## :computer: Sobre
 
-O **Marvel Search Heroes** foi um projeto criado utilizando a [api da Marvel](https://developer.marvel.com/). Seu principal objetivo é apresentar informações de todos os personagens criados pela empresa. Além disso, o usuário pode salvar até 5 personagens nos favoritos.
+O **Marvel Search Heroes** foi um projeto criado utilizando a [api da Marvel](https://developer.marvel.com/). Seu principal objetivo é desenvolver uma aplicação de listagem e detalhe de personagens de quadrinhos.
 
 ## :gear: Funcionalidades
 
@@ -46,6 +43,7 @@ O **Marvel Search Heroes** foi um projeto criado utilizando a [api da Marvel](ht
   - [x] Utilização de ES6+;
   - [x] Utilização de ferramentas para garantir a qualidade do código;
   - [x] Testes unitários
+  - [x] CI/CD - Vercel
 
 ## :wrench: Tecnologias Utilizadas
 
@@ -122,7 +120,3 @@ Time:        7.999 s
 Ran all test suites.
 Watch Usage: Press w to show more.
 ```
-
-## :memo: Licença
-
-Este projeto esta sobe a licença [MIT](./LICENCE).
