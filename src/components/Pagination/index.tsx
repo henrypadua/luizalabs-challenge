@@ -14,34 +14,26 @@ export function Pagination({
   setOffset,
 }: Readonly<PaginationProps>) {
   const [activePage, setActivePage] = useState(1)
-
   const pages = new Array(numberOfPages).fill(1).map((_, index) => index + 1)
 
   const handlePrevious = () => {
     const newPage = Math.max(1, activePage - 1)
     setActivePage(newPage)
     setOffset((newPage - 1) * limit)
-
-    localStorage.setItem('activePage', newPage.toString())
   }
 
   const handleNext = () => {
     const newPage = Math.min(pages.length, activePage + 1)
     setActivePage(newPage)
     setOffset((newPage - 1) * limit)
-
-    localStorage.setItem('activePage', newPage.toString())
   }
 
   const startPage = Math.max(1, activePage - Math.floor(visiblePages / 2))
   const endPage = Math.min(pages.length, startPage + visiblePages - 1)
 
   useEffect(() => {
-    const activePageStorage = localStorage.getItem('activePage')
-
-    if (activePageStorage) {
-      setActivePage(Number(activePageStorage))
-    }
+    setActivePage(1)
+    setOffset(0)
   }, [])
 
   return (
@@ -67,8 +59,6 @@ export function Pagination({
           onClick={() => {
             setActivePage(page)
             setOffset((page - 1) * limit)
-
-            localStorage.setItem('activePage', page.toString())
           }}
         >
           {page}
