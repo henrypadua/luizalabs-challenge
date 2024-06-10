@@ -1,40 +1,128 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- Logo -->
+<p align="center">
+  <img src="./.github/logo.png" alt="Marvel Search Heroes" title="Marvel Search Heroes">
+</p>
 
-## Getting Started
+<!-- Badges -->
+<p align="center">
+  <a href="https://luizalabs-challenge-roan.vercel.app/" target="_blank"><img alt="Marvel Search Heroes" title="Marvel Search Heroes" src="https://img.shields.io/badge/Aplica%C3%A7%C3%A3o-Marvel Search Heroes-FF1510" />
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/henrypadua/luizalabs-challenge?color=FF1510">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/henrypadua/luizalabs-challenge?color=FF1510">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-FF1510?color=FF1510">
+</p>
 
-First, run the development server:
+<!-- Indice-->
+<p align="center">
+ <a href="#computer-sobre">Sobre</a> •
+ <a href="#gear-funcionalidades">Funcionalidades</a> •
+ <a href="#wrench-tecnologias-utilizadas">Tecnologias</a> •
+ <a href="#art-layout">Layout</a> •
+ <a href="#movie_camera-preview">Preview</a> •
+ <a href="#rocket-executando-o-projeto">Executando</a> •
+ <a href="#memo-licença">Licença</a>
+</p>
+
+## :computer: Sobre
+
+O **Marvel Search Heroes** foi um projeto criado utilizando a [api da Marvel](https://developer.marvel.com/). Seu principal objetivo é apresentar informações de todos os personagens criados pela empresa. Além disso, o usuário pode salvar até 5 personagens nos favoritos.
+
+## :gear: Funcionalidades
+
+- Página de listagem de personagens (home):
+  - [x] Exibir os 20 primeiros resultados da API;
+  - [x] Permitir ordenação por nome do personagem;
+  - [x] Permitir filtrar por nome, pelo campo de busca;
+  - [x] Permitir mostrar apenas os personagens favoritos;
+  - [x] Permitir o usuário favoritar/desfavoritar até 5 personagens;
+- Página de detalhe do personagem:
+  - [x] Exibir dados do personagem;
+  - [x] Exibir últimos 10 quadrinhos lançados deste personagem (onSaleDate);
+  - [x] Permitir o usuário favoritar/desfavoritar (dentro do limite de 5).
+
+- Bônus
+  - [x] Adicionar paginação a listagem para exibir além dos 20 personagens iniciais;
+  - [x] Persistir os dados de favoritos (para manter os dados após o reload da página);
+  - [x] Layout responsivo;
+  - [x] Utilização de ES6+;
+  - [x] Utilização de ferramentas para garantir a qualidade do código;
+  - [x] Testes unitários
+
+## :wrench: Tecnologias Utilizadas
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- React
+- NextJs
+- React-query
+- TailWind CSS
+- Jest
+- React Testing library
+- EsLint
+- Prettier
+
+## :rocket: Executando o projeto
+
+### Pré-requisitos
+
+Para executar o projeto é necessário ter instalado as seguintes ferramentas:
+
+
+
+### Baixando e configurando aplicação
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone este repositório
+$ git clone https://github.com/henrypadua/luizalabs-challenge.git
+
+# Acesse a pasta do projeto no seu terminal/cmd
+$ cd luizalabs-challenge
+
+# Instale as dependências
+$ npm install
+
+# Dentro do arquivo .env troque o valor da variável de ambiente NEXT_PUBLIC_API_KEY pela apikey disponibilizada pela api da Marvel em https://developer.marvel.com/
+
+# NEXT_PUBLIC_API_KEY=[sua chave de api]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Rodando aplicação web
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# A aplicação será aberta na porta:3000 - acesse http://localhost:3000
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Rodando testes
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+# Execute a aplicação em modo de teste
+$ npm run test
 
-## Learn More
+# No terminal será mostrado um resultado como abaixo
 
-To learn more about Next.js, take a look at the following resources:
+ PASS  src/__tests__/components/HeroCard.test.tsx
+ PASS  src/__tests__/components/Footer.test.tsx
+ PASS  src/__tests__/components/Pagination.test.tsx
+ PASS  src/__tests__/components/HeaderHome.test.tsx
+ PASS  src/__tests__/services/useGetCharacters.test.tsx
+ PASS  src/__tests__/modules/InfoHero.test.tsx
+ PASS  src/__tests__/services/useGetComics.test.tsx
+ PASS  src/__tests__/services/useGetDetailCharacter.test.tsx
+ PASS  src/__tests__/pages/Home.test.tsx
+ PASS  src/__tests__/components/AutoComplete.test.tsx
+ PASS  src/__tests__/pages/DatalheHeroi.test.tsx
+ PASS  src/__tests__/components/HeroList.test.tsx (5.059 s)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Test Suites: 14 passed, 14 total
+Tests:       48 passed, 48 total
+Snapshots:   0 total
+Time:        7.999 s
+Ran all test suites.
+Watch Usage: Press w to show more.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## :memo: Licença
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este projeto esta sobe a licença [MIT](./LICENCE).
