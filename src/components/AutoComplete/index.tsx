@@ -57,7 +57,7 @@ export function AutoComplete() {
       />
 
       {isLoading && (
-        <span className="mx-4">
+        <span className="mx-4" data-testid="loading">
           <svg
             aria-hidden="true"
             className="inline h-6 w-6 animate-spin fill-marvel text-yellow-500"
@@ -92,6 +92,7 @@ export function AutoComplete() {
                   onClick={() => {
                     setCharacters([])
                   }}
+                  data-testid="character-link"
                 >
                   {character.name}
                 </Link>

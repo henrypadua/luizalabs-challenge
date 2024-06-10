@@ -1,6 +1,6 @@
 export function Loader() {
   return (
-    <div className="mx-auto flex h-96 w-20 items-center">
+    <div className="mx-auto flex h-96 w-20 items-center" data-testid="loader">
       <svg
         aria-hidden="true"
         className="inline animate-spin fill-marvel text-yellow-500"

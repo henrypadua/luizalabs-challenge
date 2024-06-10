@@ -6,6 +6,8 @@ import { useFavorite } from '@/hooks/useFavorite'
 
 import { useGetCharacters } from '@/services/useGetCharacters'
 
+import { Character } from '@/interfaces/characters'
+
 import { HeroCard } from '../HeroCard'
 import { Loader } from '../Loader'
 import { Pagination } from '../Pagination'
@@ -45,6 +47,10 @@ export function HeroList() {
     setShowFavorites(!showFavorites)
   }
 
+  const heroes = showFavorites
+    ? favorites
+    : data?.results ?? ([] as Character[])
+
   useEffect(() => {
     setTotalData(data?.total ?? 0)
   }, [data])
@@ -73,7 +79,7 @@ export function HeroList() {
             />
 
             <select
-              name="order-by"
+              data-testid="order-by"
               className="cursor-pointer outline-none"
               defaultValue={orderBy}
               onChange={handleOrderBy}
@@ -91,30 +97,16 @@ export function HeroList() {
         <Loader />
       ) : (
         <div className="mt-14 grid grid-cols-2 gap-8 p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {showFavorites ? (
-            <>
-              {favorites.length === 0 && (
-                <p className="text-md text-gray-600">
-                  Nenhum favorito encontrado
-                </p>
-              )}
-
-              {favorites?.map((hero) => <HeroCard hero={hero} key={hero.id} />)}
-            </>
-          ) : (
-            <>
-              {data?.results.map((hero) => (
-                <HeroCard hero={hero} key={hero.id} />
-              ))}
-            </>
-          )}
+          {heroes.map((hero) => (
+            <HeroCard hero={hero} key={hero.id} />
+          ))}
         </div>
       )}
 
       <div className="mt-20">
-        {!showFavorites && (
+        {!showFavorites && heroes?.length > 0 && (
           <Pagination
-            numberOfPages={Math.ceil((totalData ?? 0) / (LIMIT ?? 1))}
+            numberOfPages={Math.ceil(totalData / LIMIT)}
             limit={LIMIT}
             setOffset={setOffset}
             visiblePages={5}

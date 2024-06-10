@@ -3,12 +3,12 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 type PaginationProps = {
   numberOfPages: number
   limit: number
-  visiblePages: number
+  visiblePages?: number
   setOffset: Dispatch<SetStateAction<number>>
 }
 
 export function Pagination({
-  numberOfPages,
+  numberOfPages = 0,
   limit,
   visiblePages = 5,
   setOffset,
@@ -37,12 +37,16 @@ export function Pagination({
   }, [])
 
   return (
-    <div className="flex items-center justify-center space-x-2">
-      {activePage !== 1 && pages.length > 0 && (
+    <div
+      className="flex items-center justify-center space-x-2"
+      data-testid="pagination"
+    >
+      {activePage > 1 && pages.length > 0 && (
         <button
           className="px-4 py-2 text-marvel"
           onClick={handlePrevious}
           disabled={activePage === 1}
+          data-testid="previous-button"
         >
           &lt;
         </button>
@@ -60,6 +64,7 @@ export function Pagination({
             setActivePage(page)
             setOffset((page - 1) * limit)
           }}
+          data-testid={`page-button-${page}`}
         >
           {page}
         </button>
@@ -70,6 +75,7 @@ export function Pagination({
           className="px-4 py-2 text-marvel"
           onClick={handleNext}
           disabled={activePage === pages.length}
+          data-testid="next-button"
         >
           &gt;
         </button>

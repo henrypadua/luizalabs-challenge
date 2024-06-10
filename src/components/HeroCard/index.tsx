@@ -18,8 +18,8 @@ export function HeroCard({ hero }: Readonly<HeroCardProps>) {
   }
 
   return (
-    <div className="list-item list-none">
-      <button type="button" onClick={handleHeroClick}>
+    <div className="list-item list-none" data-testid={`hero-card-${hero.id}`}>
+      <button type="button" onClick={handleHeroClick} data-testid="hero">
         <figure className="relative m-0 cursor-pointer overflow-hidden">
           <Image
             src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
@@ -40,6 +40,7 @@ export function HeroCard({ hero }: Readonly<HeroCardProps>) {
         <button
           className="cursor-pointer outline-none"
           onClick={() => handleSetFavorites(hero)}
+          data-testid="favorite-button"
         >
           <Image
             src={`/assets/favorito_${

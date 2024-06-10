@@ -6,7 +6,10 @@ type ToggleProps = {
 
 export function Toggle({ onChange }: Readonly<ToggleProps>) {
   return (
-    <label className="inline-flex cursor-pointer flex-wrap items-center gap-9">
+    <label
+      className="inline-flex cursor-pointer flex-wrap items-center gap-9"
+      data-testid="toggle"
+    >
       <input
         type="checkbox"
         value=""

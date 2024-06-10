@@ -25,6 +25,7 @@ export function SearchBar({ onSearch, className }: Readonly<SearchBarProps>) {
         />
       </span>
       <input
+        data-testid="search-bar"
         type="text"
         placeholder="Procure por heróis"
         onChange={(event) => onSearch(event.target.value)}
